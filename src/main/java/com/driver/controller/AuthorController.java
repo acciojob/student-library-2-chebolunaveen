@@ -20,7 +20,7 @@ public class AuthorController {
     @Autowired
     AuthorService authorService;
     //Write createAuthor API with required annotations
-    @PostMapping("/add")
+    @PostMapping()
     ResponseEntity  createAuthor(@RequestBody() Author author){
         authorService.create(author);
         return new ResponseEntity<>("Success",HttpStatus.OK);

@@ -16,7 +16,7 @@ public class StudentController {
     @Autowired
     StudentService studentService;
     //Add required annotations
-    @GetMapping("/email")
+    @GetMapping("/studentByEmail")
     public ResponseEntity getStudentByEmail(@RequestParam("email") String email){
         studentService.getDetailsByEmail(email);
         return new ResponseEntity<>("Student details printed successfully ", HttpStatus.OK);
@@ -29,13 +29,13 @@ public class StudentController {
     }
 
     //Add required annotations
-    @PostMapping("/add")
+    @PostMapping()
     public ResponseEntity createStudent(@RequestBody Student student){
          studentService.createStudent(student);
         return new ResponseEntity<>("the student is successfully added to the system", HttpStatus.CREATED);
     }
 
-    @PutMapping("/update")
+    @PutMapping()
     //Add required annotations
     public ResponseEntity updateStudent(@RequestBody Student student){
         studentService.updateStudent(student);
@@ -43,7 +43,7 @@ public class StudentController {
     }
 
     //Add required annotations
-    @DeleteMapping("/delete")
+    @DeleteMapping()
     public ResponseEntity deleteStudent(@RequestParam("id") int id){
         studentService.deleteStudent(id);
         return new ResponseEntity<>("student is deleted", HttpStatus.ACCEPTED);

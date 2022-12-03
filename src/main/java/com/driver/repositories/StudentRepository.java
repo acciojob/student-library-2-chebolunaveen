@@ -10,6 +10,10 @@ import javax.transaction.Transactional;
 @Transactional
 public interface StudentRepository extends JpaRepository<Student, Integer> {
 
+
+
+
+    Student getStudentByEmailId(String emailId);
     @Modifying
     @Query("update Student s set s.emailId = :#{#std.emailId}, " +
             "s.name = :#{#std.name}, " +
@@ -17,6 +21,7 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
             "s.country = :#{#std.country} " +
             "where s.id = :#{#std.id}")
     int updateStudentDetails(Student std);
+
 
 
     @Modifying

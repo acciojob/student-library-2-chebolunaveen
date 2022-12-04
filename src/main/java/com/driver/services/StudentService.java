@@ -16,11 +16,11 @@ public class StudentService {
     @Autowired
     StudentRepository studentRepository4;
 
-    public String getDetailsByEmail(String emailId){
+    public Student getDetailsByEmail(String emailId){
         Student student = studentRepository4.getStudentByEmailId(emailId);
 
 
-        return student.getName();
+        return student;
     }
 
     public Student getDetailsById(int id){

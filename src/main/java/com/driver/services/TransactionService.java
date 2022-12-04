@@ -36,6 +36,7 @@ public class TransactionService {
     public String issueBook(int cardId, int bookId) throws Exception {
         Book book=bookRepository5.findById(bookId).get();
         Card card5=cardRepository5.findById(cardId).get();
+
 //
         //check whether bookId and cardId already exist
 
@@ -58,8 +59,9 @@ public class TransactionService {
         //If the transaction is successful, save the transaction to the list of transactions and return the id
             Book book1=bookRepository5.findById(bookId).get();
             Card card1=cardRepository5.findById(cardId).get();
-        if(card1.getBooks().size()>max_allowed_books){
+        if(card1.getBooks().size()>max_allowed_books ){
             throw new Exception("Book limit has reached for this card");
+
         }else{
             if(card1.getBooks().size()==0){
                 List<Book> books=new ArrayList<>();

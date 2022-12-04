@@ -21,7 +21,7 @@ public class StudentController {
         studentService.getDetailsByEmail(email);
         return new ResponseEntity<>("Student details printed successfully ", HttpStatus.OK);
     }
-   @GetMapping("/id")
+   @GetMapping("/studentById")
     //Add required annotations
     public ResponseEntity getStudentById(@RequestParam("id") int id){
  studentService.getDetailsById(id);

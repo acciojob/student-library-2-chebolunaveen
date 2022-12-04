@@ -2,17 +2,18 @@ package com.driver.models;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
-@Data
-@AllArgsConstructor
-@Builder
+//@Data
+//@AllArgsConstructor
+//@Builder
 @Entity
+@Setter
+@Getter
+@AllArgsConstructor
 public class Book {
 
     @Id
@@ -43,6 +44,13 @@ public class Book {
     private List<Transaction> transactions;
 
     public Book() {
+    }
+
+    public Book(String name, Genre genre, Author author,boolean available) {
+        this.name = name;
+        this.genre = genre;
+        this.author = author;
+        this.available=available;
     }
 }
 

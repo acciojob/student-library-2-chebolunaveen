@@ -35,7 +35,7 @@ public class TransactionService {
 
     public String issueBook(int cardId, int bookId) throws Exception {
         Book book=bookRepository5.findById(bookId).get();
-        CardRepository cardRepository= (CardRepository) cardRepository5.findById(cardId).get();
+        Card card5=cardRepository5.findById(cardId).get();
 //
         //check whether bookId and cardId already exist
 
@@ -48,7 +48,7 @@ public class TransactionService {
         //2. card is present and activated
         // If it fails: throw new Exception("Card is invalid");
         if(cardRepository5.existsById(cardId)){
-            Card card=cardRepository.findById(cardId).get();
+            Card card=cardRepository5.findById(cardId).get();
             if(card.getCardStatus().equals("DEACTIVATED")){
                 throw new Exception("Card is invalid");
             }
@@ -65,6 +65,9 @@ public class TransactionService {
                 List<Book> books=new ArrayList<>();
                 books.add(book1);
                 card1.setBooks(books);
+                book1.setCard(card1);
+                book1.setAvailable(false);
+
             }else{
                 card1.getBooks().add(book1);
             }
@@ -85,7 +88,7 @@ public class TransactionService {
     public Transaction returnBook(int cardId, int bookId) throws Exception{
 
         List<Transaction> transactions = transactionRepository5.find(cardId, bookId, TransactionStatus.SUCCESSFUL, true);
-        Transaction transaction = transactions.get(transactions.size() - 1);
+        Transaction transaction = transactions.get(transactions.size()- 1);
 
         //for the given transaction calculate the fine amount considering the book has been returned exactly when this function is called
         //make the book available for other users
@@ -97,6 +100,7 @@ public class TransactionService {
         int diff1=(int)diff;
         if(diff1>15){
             fine_per_day=(fine_per_day)*(diff1-15);
+            transaction.setFineAmount(fine_per_day);
         }
 
         Book book=bookRepository5.findById(bookId).get();
@@ -117,7 +121,7 @@ public class TransactionService {
         returnBookTransaction.setTransactionId(transaction.getTransactionId());
         returnBookTransaction.setTransactionStatus(transaction.getTransactionStatus());
         returnBookTransaction.setTransactionDate(transaction.getTransactionDate());
-        returnBookTransaction.setFineAmount(fine_per_day);
+        returnBookTransaction.setFineAmount(transaction.getFineAmount());
         return returnBookTransaction; //return the transaction after updating all details
     }
 }
